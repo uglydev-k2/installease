@@ -1,10 +1,28 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Home, Menu, Search, ShoppingCart, User } from "lucide-react";
+import { Home, LayoutDashboard, Menu, Search, ShoppingCart, User } from "lucide-react";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { CartDrawer } from "@/components/store/cart-drawer";
 import { Button } from "@/components/ui/button";
 
-export default function StoreLayout({ children }: { children: ReactNode }) {
+async function getIsAdmin() {
+  try {
+    const supabase = createServerComponentClient({ cookies });
+    const {
+      data: { user }
+    } = await supabase.auth.getUser();
+    if (!user) return false;
+
+    const { data } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+    return data?.role === "admin";
+  } catch {
+    return false;
+  }
+}
+
+export default async function StoreLayout({ children }: { children: ReactNode }) {
+  const isAdmin = await getIsAdmin();
   const nav = ["Home", "Services", "Install Plans", "Smart Security", "Support", "Resources"];
   const quickCategories = [
     "Home Security Setup",
@@ -47,6 +65,11 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
             <Link href="/account" className="hidden text-sm font-medium sm:block">
               Account
             </Link>
+            {isAdmin ? (
+              <Link href="/admin" className="hidden text-sm font-medium sm:block">
+                Admin
+              </Link>
+            ) : null}
             <Link href="/cart" className="hidden items-center gap-1 text-sm font-medium sm:flex">
               <ShoppingCart className="h-4 w-4" />
               Cart
@@ -138,6 +161,15 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
             Account
           </Link>
         </div>
+        {isAdmin ? (
+          <Link
+            href="/admin"
+            className="mt-1 flex items-center justify-center gap-1 rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
+          >
+            <LayoutDashboard className="h-4 w-4" />
+            Admin Dashboard
+          </Link>
+        ) : null}
       </nav>
     </div>
   );
