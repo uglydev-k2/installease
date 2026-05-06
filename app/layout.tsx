@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Geist, Inter } from "next/font/google";
+import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 
-const geist = Geist({ subsets: ["latin"], variable: "--font-geist" });
+const headingFont = Manrope({ subsets: ["latin"], variable: "--font-heading" });
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} ${inter.variable} font-sans`}>
+      <body className={`${headingFont.variable} ${inter.variable} font-sans`}>
         {children}
         <Toaster richColors />
       </body>

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items);
-  const total = useCartStore((state) => state.total());
+  const total = useCartStore((state) => state.total);
 
   if (!items.length) {
     return (
