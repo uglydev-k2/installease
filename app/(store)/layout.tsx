@@ -5,15 +5,15 @@ import { CartDrawer } from "@/components/store/cart-drawer";
 import { Button } from "@/components/ui/button";
 
 export default function StoreLayout({ children }: { children: ReactNode }) {
-  const nav = ["Home", "Categories", "Brands", "Special Discounts", "Contact", "Blogs"];
+  const nav = ["Home", "Services", "Install Plans", "Smart Security", "Support", "Resources"];
   const quickCategories = [
-    "Smartphones",
-    "Tablets",
-    "Cameras",
-    "Smart Watches",
-    "Laptops",
-    "Routers",
-    "Gaming"
+    "Home Security Setup",
+    "Smart Lighting Install",
+    "Doorbell Configuration",
+    "Smart Lock Setup",
+    "Automation Routines",
+    "Network Optimization",
+    "Maintenance Plans"
   ];
 
   return (
@@ -41,7 +41,7 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="hidden flex-1 items-center gap-2 rounded-xl border px-3 py-2 md:flex">
             <Search className="h-4 w-4 text-slate-400" />
-            <input placeholder="Search smart devices, brands..." className="w-full bg-transparent text-sm outline-none" />
+            <input placeholder="Search services, installation plans..." className="w-full bg-transparent text-sm outline-none" />
           </div>
           <div className="flex items-center gap-2">
             <Link href="/account" className="hidden text-sm font-medium sm:block">
@@ -59,7 +59,7 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
             {nav.map((item) => (
               <Link
                 key={item}
-                href={item === "Home" ? "/" : item === "Categories" ? "/products" : "/search"}
+                href={item === "Home" ? "/" : item === "Services" ? "/products" : "/search"}
                 className="text-slate-700 hover:text-indigo-600 dark:text-slate-300"
               >
                 {item}
@@ -83,14 +83,14 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
           <div>
             <p className="text-lg font-extrabold">installease</p>
             <p className="mt-2 text-sm text-slate-500">
-              Smart home marketplace built for premium devices, trusted support, and seamless setup.
+              Smart home service platform for installation, automation, and ongoing support.
             </p>
           </div>
           <div className="text-sm">
             <p className="mb-2 font-semibold">Quick links</p>
             <div className="space-y-1 text-slate-500">
               <p>Search</p>
-              <p>Brands</p>
+              <p>Service Catalog</p>
               <p>Contact</p>
             </div>
           </div>
@@ -98,7 +98,7 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
             <p className="mb-2 font-semibold">Support</p>
             <div className="space-y-1 text-slate-500">
               <p>Warranty policy</p>
-              <p>Refund policy</p>
+              <p>Service policy</p>
               <p>Terms of service</p>
             </div>
           </div>
