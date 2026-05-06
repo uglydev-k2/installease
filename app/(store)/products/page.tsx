@@ -8,7 +8,7 @@ export default function ProductsPage() {
         <h1 className="text-3xl font-bold">All Products</h1>
         <p className="text-slate-500">Showing {products.length} products</p>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}
