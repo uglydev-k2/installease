@@ -53,6 +53,7 @@ export function AuthCard({ mode }: { mode: Mode }) {
         if (error) throw error;
         toast.success("Account created. Check your email to confirm.");
         router.push("/signin");
+        router.refresh();
         return;
       }
 

@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
-import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 async function isAdminUser(userId: string) {
@@ -12,7 +12,20 @@ async function isAdminUser(userId: string) {
 }
 
 export async function requireAdminPageAccess() {
-  const supabaseAuth = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+  const supabaseAuth = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set() {},
+        remove() {}
+      }
+    }
+  );
   const {
     data: { user }
   } = await supabaseAuth.auth.getUser();
@@ -23,7 +36,20 @@ export async function requireAdminPageAccess() {
 }
 
 export async function requireAdminApiAccess() {
-  const supabaseAuth = createRouteHandlerClient({ cookies });
+  const cookieStore = cookies();
+  const supabaseAuth = createServerClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return cookieStore.get(name)?.value;
+        },
+        set() {},
+        remove() {}
+      }
+    }
+  );
   const {
     data: { user }
   } = await supabaseAuth.auth.getUser();

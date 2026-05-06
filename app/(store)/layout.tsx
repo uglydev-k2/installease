@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { Home, LayoutDashboard, Menu, Search, ShoppingCart, User } from "lucide-react";
 import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerClient } from "@supabase/ssr";
 import { CartDrawer } from "@/components/store/cart-drawer";
 import { Button } from "@/components/ui/button";
 import { AuthControls } from "@/components/store/auth-controls";
@@ -12,7 +12,20 @@ export const dynamic = "force-dynamic";
 
 async function getAuthState() {
   try {
-    const supabase = createServerComponentClient({ cookies });
+    const cookieStore = cookies();
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value;
+          },
+          set() {},
+          remove() {}
+        }
+      }
+    );
     const {
       data: { user }
     } = await supabase.auth.getUser();
@@ -52,7 +65,7 @@ export default async function StoreLayout({ children }: { children: ReactNode })
       <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur dark:bg-slate-950/95">
         <div className="mx-auto hidden max-w-7xl items-center justify-between px-4 py-2 text-xs text-slate-500 md:flex">
           <p>Follow us: X / Facebook / Instagram / TikTok / YouTube</p>
-          <AuthControls isAuthenticated={auth.isAuthenticated} email={auth.email} />
+          <AuthControls />
         </div>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-3">
