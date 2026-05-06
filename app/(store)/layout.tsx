@@ -5,6 +5,10 @@ import { cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { CartDrawer } from "@/components/store/cart-drawer";
 import { Button } from "@/components/ui/button";
+import { AuthControls } from "@/components/store/auth-controls";
+import { SignOutButton } from "@/components/store/signout-button";
+
+export const dynamic = "force-dynamic";
 
 async function getAuthState() {
   try {
@@ -48,20 +52,7 @@ export default async function StoreLayout({ children }: { children: ReactNode })
       <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur dark:bg-slate-950/95">
         <div className="mx-auto hidden max-w-7xl items-center justify-between px-4 py-2 text-xs text-slate-500 md:flex">
           <p>Follow us: X / Facebook / Instagram / TikTok / YouTube</p>
-          {auth.isAuthenticated ? (
-            <div className="flex items-center gap-2">
-              <span className="rounded-full bg-green-100 px-2 py-1 text-[11px] font-semibold text-green-700">
-                Logged in
-              </span>
-              <span className="max-w-[220px] truncate">{auth.email}</span>
-            </div>
-          ) : (
-            <div className="flex items-center gap-3">
-              <Link href="/signin">Log in</Link>
-              <span>|</span>
-              <Link href="/signup">Create Account</Link>
-            </div>
-          )}
+          <AuthControls isAuthenticated={auth.isAuthenticated} email={auth.email} />
         </div>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-3">
@@ -78,9 +69,14 @@ export default async function StoreLayout({ children }: { children: ReactNode })
           </div>
           <div className="flex items-center gap-2">
             {auth.isAuthenticated ? (
-              <Link href="/account" className="hidden text-sm font-medium sm:block">
-                Account
-              </Link>
+              <>
+                <Link href="/account" className="hidden text-sm font-medium sm:block">
+                  Account
+                </Link>
+                <div className="hidden sm:block">
+                  <SignOutButton />
+                </div>
+              </>
             ) : (
               <>
                 <Link href="/signin" className="hidden sm:block">
@@ -198,6 +194,7 @@ export default async function StoreLayout({ children }: { children: ReactNode })
             Admin Dashboard
           </Link>
         ) : null}
+        {auth.isAuthenticated ? <SignOutButton className="mt-1 w-full" /> : null}
       </nav>
     </div>
   );
