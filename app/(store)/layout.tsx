@@ -6,23 +6,29 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { CartDrawer } from "@/components/store/cart-drawer";
 import { Button } from "@/components/ui/button";
 
-async function getIsAdmin() {
+async function getAuthState() {
   try {
     const supabase = createServerComponentClient({ cookies });
     const {
       data: { user }
     } = await supabase.auth.getUser();
-    if (!user) return false;
+    if (!user) {
+      return { isAuthenticated: false, isAdmin: false, email: null as string | null };
+    }
 
     const { data } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
-    return data?.role === "admin";
+    return {
+      isAuthenticated: true,
+      isAdmin: data?.role === "admin",
+      email: user.email ?? null
+    };
   } catch {
-    return false;
+    return { isAuthenticated: false, isAdmin: false, email: null as string | null };
   }
 }
 
 export default async function StoreLayout({ children }: { children: ReactNode }) {
-  const isAdmin = await getIsAdmin();
+  const auth = await getAuthState();
   const nav = ["Home", "Services", "Install Plans", "Smart Security", "Support", "Resources"];
   const quickCategories = [
     "Home Security Setup",
@@ -42,11 +48,20 @@ export default async function StoreLayout({ children }: { children: ReactNode })
       <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur dark:bg-slate-950/95">
         <div className="mx-auto hidden max-w-7xl items-center justify-between px-4 py-2 text-xs text-slate-500 md:flex">
           <p>Follow us: X / Facebook / Instagram / TikTok / YouTube</p>
-          <div className="flex items-center gap-3">
-            <Link href="/signin">Log in</Link>
-            <span>|</span>
-            <Link href="/signup">Create Account</Link>
-          </div>
+          {auth.isAuthenticated ? (
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-green-100 px-2 py-1 text-[11px] font-semibold text-green-700">
+                Logged in
+              </span>
+              <span className="max-w-[220px] truncate">{auth.email}</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-3">
+              <Link href="/signin">Log in</Link>
+              <span>|</span>
+              <Link href="/signup">Create Account</Link>
+            </div>
+          )}
         </div>
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3">
           <div className="flex items-center gap-3">
@@ -62,10 +77,23 @@ export default async function StoreLayout({ children }: { children: ReactNode })
             <input placeholder="Search services, installation plans..." className="w-full bg-transparent text-sm outline-none" />
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/account" className="hidden text-sm font-medium sm:block">
-              Account
-            </Link>
-            {isAdmin ? (
+            {auth.isAuthenticated ? (
+              <Link href="/account" className="hidden text-sm font-medium sm:block">
+                Account
+              </Link>
+            ) : (
+              <>
+                <Link href="/signin" className="hidden sm:block">
+                  <Button size="sm" variant="outline">
+                    Log in
+                  </Button>
+                </Link>
+                <Link href="/signup" className="hidden sm:block">
+                  <Button size="sm">Create Account</Button>
+                </Link>
+              </>
+            )}
+            {auth.isAdmin ? (
               <Link href="/admin" className="hidden text-sm font-medium sm:block">
                 Admin
               </Link>
@@ -161,7 +189,7 @@ export default async function StoreLayout({ children }: { children: ReactNode })
             Account
           </Link>
         </div>
-        {isAdmin ? (
+        {auth.isAdmin ? (
           <Link
             href="/admin"
             className="mt-1 flex items-center justify-center gap-1 rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white dark:bg-slate-100 dark:text-slate-900"
