@@ -1,12 +1,16 @@
 import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { requireAdminApiAccess } from "@/lib/server/admin-auth";
 
 const allowedMimeTypes = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const maxBytes = 5 * 1024 * 1024;
 
 export async function POST(request: Request) {
   try {
+    const auth = await requireAdminApiAccess();
+    if (!auth.ok) return auth.response;
+
     const form = await request.formData();
     const file = form.get("file");
 

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { LayoutDashboard, Package, ShoppingCart, Boxes, Users, LifeBuoy } from "lucide-react";
+import { requireAdminPageAccess } from "@/lib/server/admin-auth";
 
 const nav = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
@@ -9,7 +10,11 @@ const nav = [
   { href: "/admin/inventory", label: "Inventory", icon: Boxes }
 ];
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export const dynamic = "force-dynamic";
+
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  await requireAdminPageAccess();
+
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-slate-950">
       <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 md:grid-cols-[220px_1fr]">
