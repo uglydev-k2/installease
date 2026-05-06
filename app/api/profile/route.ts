@@ -1,22 +1,21 @@
 import { NextRequest } from "next/server";
 import { handleRouteError, ok } from "@/lib/server/http";
-import { fetchOrders, placeOrder } from "@/lib/server/services/order-service";
+import { fetchProfile, saveProfile } from "@/lib/server/services/profile-service";
 
 export async function GET(request: NextRequest) {
   try {
-    const userId = request.nextUrl.searchParams.get("userId") ?? undefined;
-    const data = await fetchOrders(userId);
+    const data = await fetchProfile(request.nextUrl.searchParams);
     return ok(data);
   } catch (error) {
     return handleRouteError(error);
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
-    const data = await placeOrder(body);
-    return ok(data, 201);
+    const data = await saveProfile(body);
+    return ok(data);
   } catch (error) {
     return handleRouteError(error);
   }
