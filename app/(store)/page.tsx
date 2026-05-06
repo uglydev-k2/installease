@@ -17,6 +17,9 @@ export default function HomePage() {
 
   return (
     <div className="space-y-12">
+      <section className="rounded-2xl bg-slate-100 p-3 text-center text-sm font-semibold dark:bg-slate-800">
+        S26 SERIES IS HERE - Explore new-generation smart home automation hardware.
+      </section>
       <section className="grid gap-4 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-700 p-8 text-white lg:grid-cols-[1.5fr_1fr]">
         <div>
           <p className="mb-2 text-sm uppercase tracking-[0.2em] text-indigo-200">Smart living, simplified</p>
@@ -63,6 +66,29 @@ export default function HomePage() {
       </section>
 
       <FlashSaleBanner />
+
+      <section className="grid gap-4 lg:grid-cols-4">
+        <div className="rounded-2xl border bg-white p-5 text-center dark:bg-slate-900">
+          <p className="text-2xl">🚚</p>
+          <p className="mt-2 text-sm font-semibold">Free Delivery</p>
+          <p className="text-xs text-slate-500">Within major cities</p>
+        </div>
+        <div className="rounded-2xl border bg-white p-5 text-center dark:bg-slate-900">
+          <p className="text-2xl">✅</p>
+          <p className="mt-2 text-sm font-semibold">100% Trusted</p>
+          <p className="text-xs text-slate-500">Certified smart tech retailer</p>
+        </div>
+        <div className="rounded-2xl border bg-white p-5 text-center dark:bg-slate-900">
+          <p className="text-2xl">🛡️</p>
+          <p className="mt-2 text-sm font-semibold">Up to 3 Years Warranty</p>
+          <p className="text-xs text-slate-500">On selected products</p>
+        </div>
+        <div className="rounded-2xl border bg-white p-5 text-center dark:bg-slate-900">
+          <p className="text-2xl">💳</p>
+          <p className="mt-2 text-sm font-semibold">Cards & Mobile Money</p>
+          <p className="text-xs text-slate-500">Fast and secure payments</p>
+        </div>
+      </section>
 
       <section>
         <div className="mb-4 flex items-end justify-between">
@@ -123,6 +149,43 @@ export default function HomePage() {
             <p className="text-sm font-semibold">3. Track and control</p>
             <p className="text-sm text-slate-500">Monitor orders and devices from your account dashboard.</p>
           </div>
+        </div>
+      </section>
+
+      <section className="rounded-2xl bg-slate-900 p-8 text-white">
+        <p className="text-xs uppercase tracking-wider text-slate-300">Special Discounts</p>
+        <h3 className="mt-2 text-3xl font-extrabold">Where luxury meets innovation</h3>
+        <p className="mt-2 max-w-2xl text-slate-300">
+          Explore premium smart locks, flagship doorbells, and AI cameras with exclusive limited-time pricing.
+        </p>
+        <div className="mt-5 flex gap-3">
+          <Button>View Product</Button>
+          <Button variant="outline" className="border-white text-white hover:bg-white hover:text-slate-900">
+            Learn More
+          </Button>
+        </div>
+      </section>
+
+      <section>
+        <div className="mb-3 flex items-end justify-between">
+          <h3 className="text-xl font-semibold">Explore our Blogs</h3>
+          <Link href="/search" className="text-sm font-medium text-indigo-600">
+            Read all
+          </Link>
+        </div>
+        <div className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-2xl border bg-white p-4 dark:bg-slate-900">
+            <h4 className="font-semibold">How to build a secure smart home in 2026</h4>
+            <p className="mt-2 text-sm text-slate-500">A practical checklist for cameras, locks, and automations.</p>
+          </article>
+          <article className="rounded-2xl border bg-white p-4 dark:bg-slate-900">
+            <h4 className="font-semibold">Matter vs HomeKit vs Alexa: What to choose</h4>
+            <p className="mt-2 text-sm text-slate-500">Compatibility guidance before buying your first devices.</p>
+          </article>
+          <article className="rounded-2xl border bg-white p-4 dark:bg-slate-900">
+            <h4 className="font-semibold">Best smart bundles for renters and new homes</h4>
+            <p className="mt-2 text-sm text-slate-500">Starter, advanced, and premium bundle recommendations.</p>
+          </article>
         </div>
       </section>
     </div>
