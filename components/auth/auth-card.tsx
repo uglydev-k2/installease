@@ -98,20 +98,20 @@ export function AuthCard({ mode }: { mode: Mode }) {
         {mode === "signup" ? (
           <div>
             <label className="mb-1 block text-sm font-medium">Full Name</label>
-            <input className="w-full rounded-xl border px-3 py-2 text-sm" {...register("fullName")} />
+            <input className="w-full text-sm" {...register("fullName")} />
             {"fullName" in errors ? <p className="mt-1 text-xs text-red-500">{errors.fullName?.message}</p> : null}
           </div>
         ) : null}
 
         <div>
           <label className="mb-1 block text-sm font-medium">Email</label>
-          <input type="email" className="w-full rounded-xl border px-3 py-2 text-sm" {...register("email")} />
+          <input type="email" className="w-full text-sm" {...register("email")} />
           {"email" in errors ? <p className="mt-1 text-xs text-red-500">{errors.email?.message}</p> : null}
         </div>
 
         <div>
           <label className="mb-1 block text-sm font-medium">Password</label>
-          <input type="password" className="w-full rounded-xl border px-3 py-2 text-sm" {...register("password")} />
+          <input type="password" className="w-full text-sm" {...register("password")} />
           {"password" in errors ? <p className="mt-1 text-xs text-red-500">{errors.password?.message}</p> : null}
         </div>
 

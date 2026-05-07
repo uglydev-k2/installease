@@ -170,7 +170,7 @@ export function OrderSummaryPanel({
                   value={promoDraft}
                   onChange={(e) => setPromoDraft(e.target.value)}
                   placeholder="Enter code"
-                  className="min-w-0 flex-1 rounded-xl border border-[#E5E7EB] px-3 py-2 text-sm outline-none ring-[#0F172A] focus:ring-2"
+                  className="min-w-0 flex-1 text-sm"
                 />
                 <button
                   type="button"

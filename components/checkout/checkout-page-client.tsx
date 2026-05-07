@@ -526,7 +526,7 @@ export function CheckoutPageClient() {
                   <p className="text-xs font-bold uppercase tracking-wide text-[#6B7280]">Contact</p>
                   <div>
                     <label className="text-sm font-medium text-[#374151]">Email address</label>
-                    <input type="email" {...register("email")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]" />
+                    <input type="email" {...register("email")} className="mt-2 w-full text-sm" />
                     {errors.email ? <p className="mt-1 text-xs text-[#DC2626]">{errors.email.message}</p> : null}
                   </div>
                   <div>
@@ -535,14 +535,14 @@ export function CheckoutPageClient() {
                       <select
                         value={phonePrefix}
                         onChange={(e) => setPhonePrefix(e.target.value)}
-                        className="w-28 shrink-0 rounded-xl border border-[#E5E7EB] px-2 py-2.5 text-sm"
+                        className="w-28 shrink-0 text-sm"
                       >
                         <option value="+233">+233</option>
                       </select>
                       <input
                         {...register("phoneLocal")}
                         placeholder="24 000 0000"
-                        className="min-w-0 flex-1 rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]"
+                        className="min-w-0 flex-1 text-sm"
                       />
                     </div>
                     {errors.phoneLocal ? <p className="mt-1 text-xs text-[#DC2626]">{errors.phoneLocal.message}</p> : null}
@@ -553,27 +553,27 @@ export function CheckoutPageClient() {
                   <p className="text-xs font-bold uppercase tracking-wide text-[#6B7280]">Shipping address</p>
                   <div>
                     <label className="text-sm font-medium text-[#374151]">Full name</label>
-                    <input {...register("fullName")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]" />
+                    <input {...register("fullName")} className="mt-2 w-full text-sm" />
                     {errors.fullName ? <p className="mt-1 text-xs text-[#DC2626]">{errors.fullName.message}</p> : null}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-[#374151]">Address line 1</label>
-                    <input {...register("line1")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]" />
+                    <input {...register("line1")} className="mt-2 w-full text-sm" />
                     {errors.line1 ? <p className="mt-1 text-xs text-[#DC2626]">{errors.line1.message}</p> : null}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-[#374151]">Address line 2 (optional)</label>
-                    <input {...register("line2")} placeholder="Apartment, suite, etc." className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]" />
+                    <input {...register("line2")} placeholder="Apartment, suite, etc." className="mt-2 w-full text-sm" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label className="text-sm font-medium text-[#374151]">City</label>
-                      <input {...register("city")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]" />
+                      <input {...register("city")} className="mt-2 w-full text-sm" />
                       {errors.city ? <p className="mt-1 text-xs text-[#DC2626]">{errors.city.message}</p> : null}
                     </div>
                     <div>
                       <label className="text-sm font-medium text-[#374151]">Region / State</label>
-                      <select {...register("region")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-[#0F172A]">
+                      <select {...register("region")} className="mt-2 w-full text-sm">
                         {["Greater Accra", "Ashanti", "Western", "Eastern", "Central", "Northern", "Volta", "Brong-Ahafo", "Upper East", "Upper West"].map((r) => (
                           <option key={r} value={r}>
                             {r}
@@ -585,7 +585,7 @@ export function CheckoutPageClient() {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-[#374151]">Country</label>
-                    <select {...register("country")} className="mt-2 w-full rounded-xl border border-[#E5E7EB] px-3 py-2.5 text-sm">
+                    <select {...register("country")} className="mt-2 w-full text-sm">
                       <option>Ghana</option>
                     </select>
                   </div>

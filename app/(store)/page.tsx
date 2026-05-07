@@ -128,7 +128,7 @@ export default function HomePage() {
             <input
               type="email"
               placeholder="you@example.com"
-              className="w-full rounded-xl border px-3 py-2 text-sm"
+              className="min-w-0 flex-1 text-sm"
             />
             <Button>Join</Button>
           </div>

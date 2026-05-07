@@ -76,9 +76,9 @@ export default async function StoreLayout({ children }: { children: ReactNode })
               installease
             </Link>
           </div>
-          <div className="hidden flex-1 items-center gap-2 rounded-xl border px-3 py-2 md:flex">
-            <Search className="h-4 w-4 text-slate-400" />
-            <input placeholder="Search services, installation plans..." className="w-full bg-transparent text-sm outline-none" />
+          <div className="relative hidden flex-1 md:block">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input placeholder="Search services, installation plans..." className="w-full text-sm pl-10" />
           </div>
           <div className="flex items-center gap-2">
             {auth.isAuthenticated ? (
@@ -115,12 +115,9 @@ export default async function StoreLayout({ children }: { children: ReactNode })
           </div>
         </div>
         <div className="mx-auto max-w-7xl px-4 pb-3 md:hidden">
-          <div className="flex items-center gap-2 rounded-xl border px-3 py-2">
-            <Search className="h-4 w-4 text-slate-400" />
-            <input
-              placeholder="Search services, installation plans..."
-              className="w-full bg-transparent text-sm outline-none"
-            />
+          <div className="relative">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <input placeholder="Search services, installation plans..." className="w-full text-sm pl-10" />
           </div>
         </div>
         <div className="border-t">
@@ -173,7 +170,7 @@ export default async function StoreLayout({ children }: { children: ReactNode })
           </div>
           <div className="text-sm">
             <p className="mb-2 font-semibold">Newsletter</p>
-            <input className="w-full rounded-lg border px-3 py-2" placeholder="Your email" />
+            <input className="w-full text-sm" placeholder="Your email" />
             <Button className="mt-2 w-full">Subscribe</Button>
           </div>
         </div>

@@ -100,8 +100,8 @@ const difficultyUi: {
 
 function inputClass(err?: boolean) {
   return cn(
-    "w-full rounded-xl border bg-white px-3 py-2.5 text-sm outline-none transition focus:ring-2 focus:ring-brand-accent dark:bg-slate-950",
-    err ? "border-red-500" : "border-slate-200 dark:border-slate-700"
+    "w-full rounded-xl border border-gray-200 bg-white text-sm text-gray-900 outline-none transition focus:ring-2 focus:ring-brand-accent",
+    err ? "border-red-500" : ""
   );
 }
 
@@ -645,7 +645,7 @@ export function AddProductWizard({ mode, productId }: AddProductWizardProps) {
                         }
                       }}
                       placeholder="Type and press Enter"
-                      className="min-w-[8rem] flex-1 bg-transparent px-2 py-1 text-sm outline-none"
+                      className="min-w-[8rem] flex-1 text-sm outline-none"
                     />
                   </div>
                   <p className="mt-1 text-xs text-slate-500">Comma-separated values become chips.</p>
