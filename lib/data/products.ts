@@ -17,7 +17,8 @@ export const products: Product[] = [
     brand: "Installease",
     sku: "IL-SKT-001",
     setupDifficulty: "Beginner",
-    category: "Sockets"
+    category: "Sockets",
+    variantLabel: "Colour: White · Pack: Single"
   },
   {
     id: "p2",

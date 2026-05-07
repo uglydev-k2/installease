@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function CartPage() {
   const items = useCartStore((state) => state.items);
-  const total = useCartStore((state) => state.total);
+  const total = useCartStore((state) => state.total());
 
   if (!items.length) {
     return (
@@ -37,7 +37,7 @@ export default function CartPage() {
       <div className="rounded-xl border p-4">
         <p className="flex justify-between">
           <span>Total</span>
-          <span className="font-bold">${total().toFixed(2)}</span>
+          <span className="font-bold">${total.toFixed(2)}</span>
         </p>
       </div>
       <Link href="/checkout">

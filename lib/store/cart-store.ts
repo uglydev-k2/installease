@@ -3,7 +3,7 @@
 import { create } from "zustand";
 import { Product } from "@/lib/types/product";
 
-interface CartItem {
+export interface CartItem {
   product: Product;
   quantity: number;
 }
@@ -12,6 +12,8 @@ interface CartState {
   items: CartItem[];
   addItem: (product: Product, quantity?: number) => void;
   removeItem: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
+  clearCart: () => void;
   total: () => number;
 }
 
@@ -31,5 +33,18 @@ export const useCartStore = create<CartState>((set, get) => ({
     }),
   removeItem: (productId) =>
     set((state) => ({ items: state.items.filter((item) => item.product.id !== productId) })),
-  total: () => get().items.reduce((sum, item) => sum + (item.product.salePrice ?? item.product.price) * item.quantity, 0)
+  updateQuantity: (productId, quantity) =>
+    set((state) => {
+      if (quantity < 1) {
+        return { items: state.items.filter((item) => item.product.id !== productId) };
+      }
+      return {
+        items: state.items.map((item) =>
+          item.product.id === productId ? { ...item, quantity } : item
+        )
+      };
+    }),
+  clearCart: () => set({ items: [] }),
+  total: () =>
+    get().items.reduce((sum, item) => sum + (item.product.salePrice ?? item.product.price) * item.quantity, 0)
 }));

@@ -11,19 +11,21 @@ export const productFilterSchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(50).default(12)
 });
 
+export const orderLineItemSchema = z.object({
+  productId: z.union([z.number().int().positive(), z.string().min(1)]),
+  variantId: z.number().int().positive().optional(),
+  quantity: z.number().int().positive(),
+  price: z.number().nonnegative(),
+  name: z.string().optional(),
+  slug: z.string().optional(),
+  imageUrl: z.string().optional(),
+  variantSummary: z.string().optional()
+});
+
 export const createOrderSchema = z.object({
   userId: z.string().uuid().optional(),
   shippingAddress: z.record(z.string(), z.any()),
-  items: z
-    .array(
-      z.object({
-        productId: z.number().int().positive(),
-        variantId: z.number().int().positive().optional(),
-        quantity: z.number().int().positive(),
-        price: z.number().nonnegative()
-      })
-    )
-    .min(1),
+  items: z.array(orderLineItemSchema).min(1),
   shippingCost: z.number().nonnegative().default(0),
   discount: z.number().nonnegative().default(0),
   tax: z.number().nonnegative().default(0),

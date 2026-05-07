@@ -9,3 +9,27 @@
 body {
   @apply bg-slate-50 text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100;
 }
+
+.checkout-success-circle {
+  stroke-dasharray: 180;
+  stroke-dashoffset: 180;
+  animation: checkout-draw-circle 0.6s ease forwards 0.1s;
+}
+
+.checkout-success-tick {
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  animation: checkout-draw-tick 0.45s ease forwards 0.65s;
+}
+
+@keyframes checkout-draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes checkout-draw-tick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
