@@ -29,7 +29,7 @@ export const createOrderSchema = z.object({
   shippingCost: z.number().nonnegative().default(0),
   discount: z.number().nonnegative().default(0),
   tax: z.number().nonnegative().default(0),
-  stripePaymentIntent: z.string().optional()
+  paymentReference: z.string().optional()
 });
 
 export const cartMutationSchema = z.object({

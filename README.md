@@ -14,13 +14,13 @@ Smart home ecommerce platform built with Next.js 14 App Router, TypeScript, Tail
 - Product catalogue and product detail pages with dynamic metadata
 - Zustand cart store with cart drawer and cart page
 - Supabase SQL migration scaffold in `supabase/migrations/0001_init.sql`
-- API route stubs for products, orders, search, and Stripe webhook
+- API routes for products, orders, search, promos, and Paystack (`/api/paystack/initialize`, `verify`, `webhook`)
+- Checkout with Paystack (card, mobile money, bank transfer, USSD) and order persistence
 - Tailwind + TypeScript + ESLint/Prettier baseline config
 
 ## Next implementation steps
 
 - Wire real Supabase data and auth (email, Google, Apple)
-- Build checkout with Stripe Elements and order persistence
 - Complete account dashboard, wishlist, devices, and compatibility profile
 - Expand admin analytics, product CRUD, inventory bulk operations
 
@@ -39,3 +39,9 @@ Smart home ecommerce platform built with Next.js 14 App Router, TypeScript, Tail
    - `NEXT_PUBLIC_SUPABASE_URL`
    - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 4. Use `/signin` and `/signup` for account access.
+
+## Paystack (Ghana checkout)
+
+1. Add `NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY`, `PAYSTACK_SECRET_KEY`, and `NEXT_PUBLIC_SITE_URL` (used as the Paystack `callback_url` base) to `.env.local`.
+2. Run migration `0007_paystack_orders.sql` (or apply the SQL in the Supabase SQL editor) so `orders` has `payment_reference`, `payment_method`, and `payment_channel`.
+3. In the Paystack dashboard, set the webhook URL to `https://your-domain.com/api/paystack/webhook` and enable `charge.success` (and optionally `transfer.success`).

@@ -11,7 +11,7 @@ interface CreateOrderInput {
   shippingCost: number;
   discount: number;
   tax: number;
-  stripePaymentIntent?: string;
+  paymentReference?: string;
 }
 
 function numericProductId(line: OrderLine): number | null {
@@ -62,7 +62,8 @@ export async function createOrder(payload: CreateOrderInput) {
       discount: payload.discount,
       tax: payload.tax,
       total,
-      stripe_payment_intent: payload.stripePaymentIntent ?? null
+      stripe_payment_intent: null,
+      payment_reference: payload.paymentReference ?? null
     })
     .select("*")
     .single();
