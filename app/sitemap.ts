@@ -3,7 +3,7 @@ import { products } from "@/lib/data/products";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-  const staticRoutes = ["", "/products", "/cart", "/checkout", "/account", "/search", "/plumbing"];
+  const staticRoutes = ["", "/products", "/cart", "/checkout", "/account", "/search"];
   return [
     ...staticRoutes.map((route) => ({
       url: `${base}${route}`,
